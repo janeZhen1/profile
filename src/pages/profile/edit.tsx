@@ -1,12 +1,13 @@
-import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import axios from '../../libs/api';
 import './index.css';
 import { ProfileData } from './modal';
 
 function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUpdate: () => void }) {
   const [editUser, setEditUser] = useState<ProfileData>(user);
   const [errors, setErrors] = useState<Partial<ProfileData>>({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const validate = (): boolean => {
     const newErrors: Partial<ProfileData> = {};
@@ -44,6 +45,7 @@ function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUp
         await axios.put('/api/profile', {
           user: editUser,
         });
+        toast.success('Update profile successfully');
         onProfileUpdate();
       }
     } catch (error) {
