@@ -52,7 +52,7 @@ function Profile() {
       {editing ? <ProfileEdit user={user} onProfileUpdate={handleSave} /> : <ProfileInfo user={user} />}
       {loading && <div className="text-slate-600 text-base">Data refreshing...</div>}
 
-      {!editing ? (
+      {!editing && !loading ? (
         <button
           type="button"
           className="draw-border w-full p-4 rounded-none font-bold mt-4 is-loading"

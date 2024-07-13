@@ -32,7 +32,7 @@ export default async function $get(req: Request, res: Response) {
         },
       });
     }
-    // console.error(error);
+    console.error(error);
     return res.status(400).send(error.message);
   }
 }
