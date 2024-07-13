@@ -57,7 +57,10 @@ function Profile() {
       {editing ? <ProfileEdit user={user} onProfileUpdate={handleSave} /> : <ProfileInfo user={user} />}
 
       {!editing ? (
-        <button type="button" className="draw-border w-full p-4 rounded-none font-bold mt-4" onClick={handleEdit}>
+        <button
+          type="button"
+          className="draw-border w-full p-4 rounded-none font-bold mt-4 is-loading"
+          onClick={handleEdit}>
           EDIT
         </button>
       ) : null}

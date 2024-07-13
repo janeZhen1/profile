@@ -72,7 +72,7 @@ function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUp
         {errors.phone && <p className="text-red-500 text-sm text-left">{errors.phone}</p>}
       </div>
       <button type="button" className="draw-border w-full p-4  rounded-none font-bold" onClick={handleSave}>
-        SAVE
+        {loading ? 'Loading...' : 'SAVE'}
       </button>
     </div>
   );
