@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+
+import { isEqual } from 'lodash';
 import axios from '../../libs/api';
 import './index.css';
 import { ProfileData } from './modal';
 
-function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUpdate: () => void }) {
+function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUpdate: (isFetching: boolean) => void }) {
   const [editUser, setEditUser] = useState<ProfileData>(user);
   const [errors, setErrors] = useState<Partial<ProfileData>>({});
   const [loading, setLoading] = useState(false);
@@ -41,12 +43,18 @@ function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUp
     if (loading) return;
     try {
       setLoading(true);
+
+      if (isEqual(user, editUser)) {
+        onProfileUpdate(false);
+        return;
+      }
+
       if (validate()) {
         await axios.put('/api/profile', {
           user: editUser,
         });
         toast.success('Update profile successfully');
-        onProfileUpdate();
+        onProfileUpdate(true);
       }
     } catch (error) {
       console.error(error);

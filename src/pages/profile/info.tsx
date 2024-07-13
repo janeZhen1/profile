@@ -1,4 +1,3 @@
-import './index.css';
 import { ProfileData } from './modal';
 
 function ProfileInfo({ user }: { user: ProfileData }) {

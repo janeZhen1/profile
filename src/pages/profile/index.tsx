@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { AxiosResponse } from 'axios';
 import { useSessionContext } from '../../contexts/session';
@@ -29,25 +29,25 @@ function Profile() {
     }
   };
 
-  useEffect(() => {
-    fetchProfile();
-  });
-
   const handleEdit = () => {
     setEditing(true);
   };
 
-  const handleSave = () => {
-    fetchProfile();
+  const handleSave = (isFetching: boolean) => {
+    if (isFetching) {
+      fetchProfile();
+    }
     setEditing(false);
   };
+
+  fetchProfile();
 
   if (!session.user) {
     return <RequiredLogin />;
   }
 
   return (
-    <div className="mx-auto w-full max-w-[360px] p-5 md:p-14  shadow-2xl mt-20 rounded-md bg-[#222831] flex flex-col items-center gap-10 ">
+    <div className="mx-auto w-full max-w-[360px] p-5 md:p-14  shadow-2xl mt-20 rounded-md bg-[#222831] flex flex-col items-center gap-10">
       <img
         src="https://img.keaitupian.cn/uploads/upimg/1601432924978286.png"
         className="rounded-full border-2 border-[#eb196e]"
