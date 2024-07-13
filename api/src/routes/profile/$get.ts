@@ -28,6 +28,7 @@ export default async function $get(req: Request, res: Response) {
           username: '',
           email: '',
           phone: '',
+          avatar: '',
         },
       });
     }

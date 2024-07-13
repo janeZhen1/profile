@@ -48,12 +48,6 @@ function Profile() {
 
   return (
     <div className="mx-auto w-full max-w-[360px] p-5 md:p-14  shadow-2xl mt-20 rounded-md bg-[#222831] flex flex-col items-center gap-10">
-      <img
-        src="https://img.keaitupian.cn/uploads/upimg/1601432924978286.png"
-        className="rounded-full border-2 border-[#eb196e]"
-        width="170"
-        alt="avatar"
-      />
       {editing ? <ProfileEdit user={user} onProfileUpdate={handleSave} /> : <ProfileInfo user={user} />}
 
       {!editing ? (

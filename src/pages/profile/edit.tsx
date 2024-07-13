@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import { isEqual } from 'lodash';
 import axios from '../../libs/api';
+import Avatar from './avatar';
 import './index.css';
 import { ProfileData } from './modal';
 
@@ -39,6 +40,10 @@ function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUp
     setEditUser({ ...editUser, [name]: value });
   };
 
+  const handleAvatar = (avatarImage: string) => {
+    setEditUser({ ...editUser, avatar: avatarImage });
+  };
+
   const handleSave = async () => {
     if (loading) return;
     try {
@@ -62,8 +67,10 @@ function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUp
       setLoading(false);
     }
   };
+
   return (
     <div className="w-full flex flex-col gap-4">
+      <Avatar avatar={user?.avatar} updateAvatar={handleAvatar} />
       <div className="input-box">
         <label htmlFor="username">NAME:</label>
         <input type="text" name="username" id="username" value={editUser?.username} onChange={handleChange} required />
