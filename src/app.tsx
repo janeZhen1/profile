@@ -1,12 +1,12 @@
 import { LocaleProvider } from '@arcblock/ux/lib/Locale/context';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-
 import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 import './app.css';
 import Layout from './components/layout';
 import { SessionProvider } from './contexts/session';
 import Profile from './pages/profile';
-import TodoList from './pages/todo-list';
 
 function App() {
   return (
@@ -15,7 +15,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Profile />} />
-          <Route path="/todo" element={<TodoList />} />
         </Route>
       </Routes>
     </div>
