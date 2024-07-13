@@ -7,7 +7,7 @@ import Avatar from './avatar';
 import './index.css';
 import { ProfileData } from './modal';
 
-function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUpdate: (isFetching: boolean) => void }) {
+function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUpdate: () => void }) {
   const [editUser, setEditUser] = useState<ProfileData>(user);
   const [errors, setErrors] = useState<Partial<ProfileData>>({});
   const [loading, setLoading] = useState(false);
@@ -50,7 +50,7 @@ function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUp
       setLoading(true);
 
       if (isEqual(user, editUser)) {
-        onProfileUpdate(false);
+        onProfileUpdate();
         return;
       }
 
@@ -59,7 +59,7 @@ function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUp
           user: editUser,
         });
         toast.success('Update profile successfully');
-        onProfileUpdate(true);
+        onProfileUpdate();
       }
     } catch (error) {
       console.error(error);

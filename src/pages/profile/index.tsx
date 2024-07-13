@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { AxiosResponse } from 'axios';
 import { useSessionContext } from '../../contexts/session';
@@ -33,22 +33,24 @@ function Profile() {
     setEditing(true);
   };
 
-  const handleSave = (isFetching: boolean) => {
-    if (isFetching) {
-      fetchProfile();
-    }
+  const handleSave = () => {
     setEditing(false);
   };
 
-  fetchProfile();
+  useEffect(() => {
+    if (editing) return;
+    fetchProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editing]);
 
   if (!session.user) {
     return <RequiredLogin />;
   }
 
   return (
-    <div className="mx-auto w-full max-w-[360px] p-5 md:p-14  shadow-2xl mt-20 rounded-md bg-[#222831] flex flex-col items-center gap-10">
+    <div className="mx-auto w-full max-w-[360px] p-5 md:p-14  shadow-2xl mt-20 rounded-md bg-[#222831] flex flex-col items-center gap-4 relative">
       {editing ? <ProfileEdit user={user} onProfileUpdate={handleSave} /> : <ProfileInfo user={user} />}
+      {loading && <div className="text-slate-600 text-base">Data refreshing...</div>}
 
       {!editing ? (
         <button
