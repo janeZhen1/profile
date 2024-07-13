@@ -30,6 +30,7 @@ jobs:
           skip-upload: false
           skip-deploy: false
           bundle-command: pnpm bundle
+          deps-npm-client: pnpm
           store-endpoint: ${{ secrets.STORE_ENDPOINT }}
           store-access-token: ${{ secrets.STORE_ACCESS_TOKEN }}
           server-endpoint: ${{ secrets.SERVER_ENDPOINT }}
