@@ -32,7 +32,7 @@ function Avatar({ avatar, updateAvatar }: { avatar?: string; updateAvatar: (avat
   return (
     <div {...getRootProps({ className: 'dropzone' })} className="w-full mb-4">
       <input {...getInputProps()} />
-      <div className="w-[170px] h-[170px] rounded-full border-2 border-[#eb196e] mx-auto overflow-hidden">
+      <div className="w-[100px] md:w-[170px] aspect-square rounded-full border-2 border-[#eb196e] mx-auto overflow-hidden">
         {editAvatar ? (
           <img src={editAvatar} className="w-full h-full object-cover" alt="avatar" />
         ) : (
