@@ -1,10 +1,12 @@
+import axios from 'axios';
 import { useState } from 'react';
 import './index.css';
 import { ProfileData } from './modal';
 
-function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUpdate: (user: ProfileData) => void }) {
+function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUpdate: () => void }) {
   const [editUser, setEditUser] = useState<ProfileData>(user);
   const [errors, setErrors] = useState<Partial<ProfileData>>({});
+  const [loading, setLoading] = useState(true);
 
   const validate = (): boolean => {
     const newErrors: Partial<ProfileData> = {};
@@ -34,9 +36,20 @@ function ProfileEdit({ user, onProfileUpdate }: { user: ProfileData; onProfileUp
     setEditUser({ ...editUser, [name]: value });
   };
 
-  const handleSave = () => {
-    if (validate()) {
-      onProfileUpdate(editUser);
+  const handleSave = async () => {
+    if (loading) return;
+    try {
+      setLoading(true);
+      if (validate()) {
+        await axios.put('/api/profile', {
+          user: editUser,
+        });
+        onProfileUpdate();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (

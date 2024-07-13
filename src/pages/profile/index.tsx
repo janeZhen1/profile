@@ -1,24 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import axios, { AxiosResponse } from 'axios';
 import ProfileEdit from './edit';
 import './index.css';
 import ProfileInfo from './info';
 import { ProfileData } from './modal';
 
 function Profile() {
-  const [user, setUser] = useState<ProfileData>({
-    username: 'John Doe',
-    email: 'john@example.com',
-    phone: '123-456-7890',
-  });
+  const [user, setUser] = useState<ProfileData>();
   const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const fetchProfile = async () => {
+    if (loading) return;
+    try {
+      setLoading(true);
+      const response: AxiosResponse<{ profile: ProfileData }, any> = await axios.get('/api/profile');
+      setUser(response.data.profile);
+    } catch (error) {
+      console.error(error);
+      setUser({ username: '', email: '', phone: '' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  });
 
   const handleEdit = () => {
     setEditing(true);
   };
 
-  const handleSave = (editUser: ProfileData) => {
-    setUser(editUser);
+  const handleSave = () => {
+    fetchProfile();
     setEditing(false);
   };
 
