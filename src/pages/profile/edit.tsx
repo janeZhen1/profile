@@ -1,7 +1,7 @@
+import { isEqual } from 'lodash';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { isEqual } from 'lodash';
 import axios from '../../libs/api';
 import Avatar from './avatar';
 import './index.css';
